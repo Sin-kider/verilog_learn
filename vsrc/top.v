@@ -22,5 +22,6 @@ module top (
     output [7:0] seg6,
     output [7:0] seg7
 );
-mux241 mux241_1(sw[9:2],sw[1:0],ledr[1:0]);
+encode83 encode83_1(sw[7:0],sw[8],ledr[2:0]);
+seg seg_1(ledr[2:0], seg0[7:0]);
 endmodule
