@@ -22,7 +22,19 @@ module top (
     output [7:0] seg6,
     output [7:0] seg7
 );
-shift_random shift_random_1(button[0], button[1], sw[7:0],ledr[7:0]);
-seg seg_1(ledr[3:0], seg0);
-seg seg_2(ledr[7:4], seg1);
+    reg [7:0] data,key_count;
+    reg key_down;
+    seg seg_1({key_down,data[3:0]}, seg0);
+    seg seg_2({key_down,data[7:4]}, seg1);
+    seg seg_3({key_down,key_count[3:0]}, seg2);
+    seg seg_4({key_down,key_count[7:4]}, seg3);
+    ps2_keyboard ps2_keyboard_1(
+      .clk(clk),
+      .clrn(~rst),
+      .ps2_clk(ps2_clk),
+      .ps2_data(ps2_data),
+      .data(data),
+      .key_count(key_count),
+      .key_down(key_down)
+   );
 endmodule
