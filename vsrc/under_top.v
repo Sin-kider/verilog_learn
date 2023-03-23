@@ -1,20 +1,39 @@
-module ALU (
-    input wire signed [3:0] a,
-    input wire signed [3:0] b,
-    input [2:0] cmd,
-    output reg signed [3:0] out
+module shift_random (
+    input clk,
+    input reset,
+    input [7:0] in_number,
+    output reg [7:0] out_number
 );
-always @(*) begin
-    case (cmd)
-        3'b000: out = a + b;
-        3'b001: out = a - b;
-        3'b010: out = ~a;
-        3'b011: out = a & b;
-        3'b100: out = a | b;
-        3'b101: out = a ^ b;
-        3'b110: out = (a < b) ? 1 : 0;
-        3'b111: out = (a == b) ? 1 : 0;
-        default: out = 0;
-    endcase
+always @(posedge clk or posedge reset) begin
+    if(reset) begin
+        out_number = in_number;
+    end
+    else begin
+        out_number = {^{out_number[4:2],out_number[0]},out_number[7:1]};
+    end 
 end
+endmodule
+
+module seg(
+  input [3:0] in,
+  output [7:0] seg
+);
+    MuxKey #(16, 4, 8) MuxKey_1(seg, in, {
+        4'b0000, 8'b00000011, // 0
+        4'b0001, 8'b10011111, // 1
+        4'b0010, 8'b00100101, // 2
+        4'b0011, 8'b00001101, // 3
+        4'b0100, 8'b10011001, // 4
+        4'b0101, 8'b01001001, // 5
+        4'b0110, 8'b01000001, // 6
+        4'b0111, 8'b00011111, // 7
+        4'b1000, 8'b00000001, // 8
+        4'b1001, 8'b00001001, // 9
+        4'b1010, 8'b00010001, // A
+        4'b1011, 8'b11000001, // B
+        4'b1100, 8'b01100011, // C
+        4'b1101, 8'b10000101, // D
+        4'b1110, 8'b01100001, // E
+        4'b1111, 8'b01110001  // F
+    });
 endmodule

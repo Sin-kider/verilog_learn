@@ -22,5 +22,7 @@ module top (
     output [7:0] seg6,
     output [7:0] seg7
 );
-ALU ALU_1(sw[3:0], sw[7:4], sw[10:8], ledr[3:0]);
+shift_random shift_random_1(button[0], button[1], sw[7:0],ledr[7:0]);
+seg seg_1(ledr[3:0], seg0);
+seg seg_2(ledr[7:4], seg1);
 endmodule
