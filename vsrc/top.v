@@ -22,4 +22,5 @@ module top (
     output [7:0] seg6,
     output [7:0] seg7
 );
+mux241 mux241_1(sw[9:2],sw[1:0],ledr[1:0]);
 endmodule
