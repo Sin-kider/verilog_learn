@@ -22,6 +22,5 @@ module top (
     output [7:0] seg6,
     output [7:0] seg7
 );
-encode83 encode83_1(sw[7:0],sw[8],ledr[2:0]);
-seg seg_1(ledr[2:0], seg0[7:0]);
+ALU ALU_1(sw[3:0], sw[7:4], sw[10:8], ledr[3:0]);
 endmodule
